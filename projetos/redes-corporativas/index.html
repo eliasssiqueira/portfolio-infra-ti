@@ -3,114 +3,103 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Infraestrutura de rede corporativa · Elias de Siqueira</title>
-  <meta name="description" content="Estudo de caso: rede corporativa segmentada por VLANs, com roteamento entre VLANs em switch multicamada e DHCP centralizado, montada e testada no Cisco Packet Tracer.">
-  <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0f1113" media="(prefers-color-scheme: dark)">
+  <title>Infraestrutura de rede corporativa: VLANs, roteamento e DHCP no Packet Tracer · Elias de Siqueira</title>
+  <meta name="description" content="Como montei no Cisco Packet Tracer a rede de uma empresa com quatro setores: VLANs, trunks 802.1Q, roteamento entre VLANs em switch multicamada e DHCP centralizado com relay, com os testes e os problemas resolvidos.">
+  <meta name="theme-color" content="#fcfcfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141619" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="article">
   <meta property="og:locale" content="pt_BR">
-  <meta property="og:title" content="Infraestrutura de rede corporativa · Elias de Siqueira">
+  <meta property="og:title" content="Infraestrutura de rede corporativa: VLANs, roteamento e DHCP no Packet Tracer">
   <meta property="og:description" content="VLANs, trunks 802.1Q, roteamento entre VLANs e DHCP com relay, com testes e problemas reais documentados.">
   <meta property="og:url" content="https://eliasssiqueira.github.io/portfolio-infra-ti/projetos/redes-corporativas/">
   <meta property="og:image" content="https://eliasssiqueira.github.io/portfolio-infra-ti/projetos/redes-corporativas/imagens/topologia.png">
+  <meta property="article:published_time" content="2026-10-28">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="../../assets/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/css/site.css">
-  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__rv)document.querySelectorAll('.rv').forEach(function(e){e.classList.add('in')})},3000)</script>
+  <script>(function(){try{var t=localStorage.getItem('tema');if(t==='escuro'||t==='claro')document.documentElement.setAttribute('data-tema',t)}catch(e){}})();</script>
 </head>
 <body>
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <div class="progress" aria-hidden="true"></div>
 
-  <header class="top">
-    <div class="wrap">
-      <a class="brand" href="../../" aria-label="Elias de Siqueira, página inicial"><span class="brand-mark" aria-hidden="true">E</span>Elias de Siqueira</a>
-      <nav class="nav" aria-label="Principal">
-        <a href="../../#projetos" aria-current="page">Projetos</a>
-        <a class="hide-sm" href="../../#trajetoria">Trajetória</a>
-        <a href="../../#contato">Contato</a>
-        <a class="hide-xs" href="https://github.com/eliasssiqueira/portfolio-infra-ti" target="_blank" rel="noopener">GitHub ↗</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="../../">Elias de Siqueira</a>
+      <nav class="site-nav" aria-label="Principal">
+        <a href="../../">Início</a>
+        <a href="../../sobre/">Sobre</a>
+        <a class="hide-xs" href="https://github.com/eliasssiqueira/portfolio-infra-ti" target="_blank" rel="noopener">GitHub</a>
+        <button class="theme-toggle" type="button" aria-label="Alternar tema">
+          <svg class="icon-lua" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
       </nav>
     </div>
   </header>
 
   <main id="conteudo">
-    <article>
-      <header class="case-hero">
-        <div class="wrap">
-          <nav class="crumbs label rise d1" aria-label="Você está em"><a href="../../">Início</a><span aria-hidden="true">/</span><a href="../../#projetos">Projetos</a><span aria-hidden="true">/</span><span>01</span></nav>
-          <h1 class="display case-title rise d2">Infraestrutura de rede corporativa</h1>
-          <p class="lede rise d3">Rede de uma empresa fictícia com quatro setores, segmentada por VLANs, com roteamento entre VLANs em um switch multicamada e DHCP centralizado com relay. Montada, testada e documentada no Cisco Packet Tracer.</p>
-          <dl class="meta rise d4">
-            <div><dt>Status</dt><dd><span class="led" aria-hidden="true"></span>Versão 1 publicada</dd></div>
-            <div><dt>Ferramenta</dt><dd>Cisco Packet Tracer 9.0.1</dd></div>
-            <div><dt>Equipamentos</dt><dd>Catalyst 3650 e 2960</dd></div>
-            <div><dt>Data</dt><dd>Outubro de 2026</dd></div>
-          </dl>
-          <div class="actions rise d5">
-            <a class="btn btn-solid" href="https://github.com/eliasssiqueira/portfolio-infra-ti/tree/main/projetos/redes-corporativas" target="_blank" rel="noopener">Documentação completa no GitHub ↗</a>
-            <a class="btn" href="lab/rede-corporativa-v1.pkt" download>Baixar o laboratório (.pkt)</a>
-          </div>
-        </div>
+    <article class="post">
+      <a class="back" href="../../">← Todos os posts</a>
+
+      <header class="post-header">
+        <p class="kicker">Projeto 01 · Redes</p>
+        <h1>Infraestrutura de rede corporativa: VLANs, roteamento e DHCP no Packet Tracer</h1>
+        <p class="post-meta">Por Elias de Siqueira · <time datetime="2026-10-28">28 de outubro de 2026</time> · <span data-leitura>7 min de leitura</span></p>
+        <ul class="tags" aria-label="Assuntos">
+          <li>redes</li><li>cisco</li><li>vlan</li><li>dhcp</li><li>packet-tracer</li>
+        </ul>
       </header>
 
-      <div class="wrap">
-        <figure class="figure rv">
-          <div class="figure-frame">
-            <a href="imagens/topologia.png" title="Abrir a imagem em tamanho original"><img src="imagens/topologia.png" width="1124" height="538" alt="Topologia no Packet Tracer: o CORE ligado aos switches SW1, SW2 e SW3; PC-ADM1, PC-TI1 e PC-COM1 no SW1, PC-ADM2, PC-TI2 e PC-COM2 no SW2 e o servidor DHCP no SW3"></a>
-          </div>
-          <figcaption><span class="label">Figura 1</span>Topologia no Packet Tracer, com as portas de cada ligação.</figcaption>
+      <div class="post-body">
+        <p class="lede">Neste laboratório, montei no Cisco Packet Tracer a rede de uma empresa fictícia com quatro setores. Cada setor ficou em uma VLAN própria, o roteamento entre elas ficou num switch multicamada e todos os computadores recebem IP de um único servidor DHCP. Aqui conto como configurei, como testei e os três problemas que apareceram no caminho.</p>
+
+        <figure class="wide-figure">
+          <a href="imagens/topologia.png" title="Abrir a imagem em tamanho original"><img src="imagens/topologia.png" width="1124" height="538" alt="Topologia no Packet Tracer: o CORE ligado aos switches SW1, SW2 e SW3; PC-ADM1, PC-TI1 e PC-COM1 no SW1, PC-ADM2, PC-TI2 e PC-COM2 no SW2 e o servidor DHCP no SW3"></a>
+          <figcaption>A topologia no Packet Tracer, com as portas de cada ligação.</figcaption>
         </figure>
 
-        <section class="stats rv" aria-label="O laboratório em números">
-          <div><strong>4</strong><span>VLANs, uma por setor</span></div>
-          <div><strong>4</strong><span>switches: 1 de núcleo e 3 de acesso</span></div>
-          <div><strong>7</strong><span>hosts: 6 PCs e 1 servidor DHCP</span></div>
-          <div><strong>8</strong><span>testes com a saída registrada</span></div>
-          <div><strong>3</strong><span>problemas resolvidos e documentados</span></div>
-        </section>
+        <nav class="toc" aria-label="Neste post">
+          <p>Neste post</p>
+          <ol>
+            <li><a href="#cenario">O cenário</a></li>
+            <li><a href="#topologia">A topologia e o endereçamento</a></li>
+            <li><a href="#configuracao">Configuração passo a passo</a></li>
+            <li><a href="#testes">Testes</a></li>
+            <li><a href="#problemas">Problemas e soluções</a></li>
+            <li><a href="#aprendizados">O que aprendi e próximos passos</a></li>
+          </ol>
+        </nav>
 
-        <section class="case-section" aria-labelledby="s1">
-          <div class="case-side rv"><p class="label">Cenário</p><span class="sec-num" aria-hidden="true">01</span></div>
-          <div class="prose rv">
-            <h2 id="s1">O que a rede precisava fazer</h2>
-            <p>Uma empresa fictícia com quatro setores: Administrativo, TI, Comercial e Servidores. Os requisitos:</p>
-            <ul>
-              <li>Separar o tráfego de cada setor em uma VLAN e uma rede IP próprias.</li>
-              <li>Permitir a comunicação entre os setores por meio de roteamento no switch de núcleo.</li>
-              <li>Entregar endereços IP automaticamente aos computadores, a partir de um único servidor DHCP na rede de servidores.</li>
-              <li>Ligar os switches de acesso ao núcleo por trunks 802.1Q.</li>
-            </ul>
-          </div>
-        </section>
+        <h2 id="cenario">O cenário</h2>
+        <p>A empresa tem quatro setores: Administrativo, TI, Comercial e Servidores. Os requisitos eram:</p>
+        <ul>
+          <li>Separar o tráfego de cada setor em uma VLAN e uma rede IP próprias.</li>
+          <li>Permitir a comunicação entre os setores por meio de roteamento no switch de núcleo.</li>
+          <li>Entregar endereços IP automaticamente aos computadores, a partir de um único servidor DHCP na rede de servidores.</li>
+          <li>Ligar os switches de acesso ao núcleo por trunks 802.1Q.</li>
+        </ul>
 
-        <section class="case-section" aria-labelledby="s2">
-          <div class="case-side rv"><p class="label">Arquitetura</p><span class="sec-num" aria-hidden="true">02</span></div>
-          <div class="prose rv">
-            <h2 id="s2">Duas camadas, núcleo colapsado</h2>
-            <p>O CORE, um Catalyst 3650, concentra as funções de núcleo e distribuição: é nele que ficam os gateways das quatro redes e o roteamento entre elas. SW1, SW2 e SW3, todos Catalyst 2960, formam a camada de acesso e se ligam ao CORE em estrela, cada um por um trunk.</p>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>VLAN</th><th>Nome</th><th>Rede</th><th>Gateway</th><th>Hosts</th></tr></thead>
-                <tbody>
-                  <tr><td class="m">10</td><td>ADMINISTRATIVO</td><td class="m">192.168.10.0/24</td><td class="m">192.168.10.1</td><td>DHCP, a partir do .100</td></tr>
-                  <tr><td class="m">20</td><td>TI</td><td class="m">192.168.20.0/24</td><td class="m">192.168.20.1</td><td>DHCP, a partir do .100</td></tr>
-                  <tr><td class="m">30</td><td>COMERCIAL</td><td class="m">192.168.30.0/24</td><td class="m">192.168.30.1</td><td>DHCP, a partir do .100</td></tr>
-                  <tr><td class="m">40</td><td>SERVIDORES</td><td class="m">172.16.40.0/24</td><td class="m">172.16.40.1</td><td>Servidor com IP fixo 172.16.40.2</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
+        <h2 id="topologia">A topologia e o endereçamento</h2>
+        <p>Usei uma arquitetura de duas camadas, com núcleo colapsado. O CORE, um Catalyst 3650, faz o papel de núcleo e de distribuição: nele ficam os gateways das quatro redes e o roteamento entre elas. Os switches SW1, SW2 e SW3, todos Catalyst 2960, formam a camada de acesso e se ligam ao CORE em estrela, cada um por um trunk.</p>
+        <p>O plano de endereçamento ficou assim:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>VLAN</th><th>Nome</th><th>Rede</th><th>Gateway</th><th>Hosts</th></tr></thead>
+            <tbody>
+              <tr><td class="m">10</td><td>ADMINISTRATIVO</td><td class="m">192.168.10.0/24</td><td class="m">192.168.10.1</td><td>DHCP, a partir do .100</td></tr>
+              <tr><td class="m">20</td><td>TI</td><td class="m">192.168.20.0/24</td><td class="m">192.168.20.1</td><td>DHCP, a partir do .100</td></tr>
+              <tr><td class="m">30</td><td>COMERCIAL</td><td class="m">192.168.30.0/24</td><td class="m">192.168.30.1</td><td>DHCP, a partir do .100</td></tr>
+              <tr><td class="m">40</td><td>SERVIDORES</td><td class="m">172.16.40.0/24</td><td class="m">172.16.40.1</td><td>Servidor com IP fixo 172.16.40.2</td></tr>
+            </tbody>
+          </table>
+        </div>
 
-        <section class="case-section" aria-labelledby="s3">
-          <div class="case-side rv"><p class="label">Implementação</p><span class="sec-num" aria-hidden="true">03</span></div>
-          <div class="prose rv">
-            <h2 id="s3">Como foi configurado</h2>
-            <ol class="steps">
-              <li>
-                <h3>VLANs em todos os switches</h3>
-                <p>As quatro VLANs foram criadas e nomeadas no CORE e nos três switches de acesso.</p>
-<pre class="cli"><code>vlan 10
+        <h2 id="configuracao">Configuração passo a passo</h2>
+
+        <h3>1. VLANs em todos os switches</h3>
+        <p>Criei e nomeei as quatro VLANs no CORE e nos três switches de acesso:</p>
+<pre><code>vlan 10
  name ADMINISTRATIVO
 vlan 20
  name TI
@@ -118,11 +107,10 @@ vlan 30
  name COMERCIAL
 vlan 40
  name SERVIDORES</code></pre>
-              </li>
-              <li>
-                <h3>Portas de acesso e trunks</h3>
-                <p>No SW1 e no SW2, cada PC fica em uma porta de acesso da VLAN do seu setor. No SW3, a porta do servidor fica na VLAN 40. As ligações com o CORE são trunks 802.1Q.</p>
-<pre class="cli"><code><span class="h">! SW1 e SW2</span>
+
+        <h3>2. Portas de acesso e trunks</h3>
+        <p>No SW1 e no SW2, cada PC fica numa porta de acesso da VLAN do seu setor. No SW3, a porta do servidor fica na VLAN 40. A ligação de cada switch com o CORE é um trunk:</p>
+<pre><code><span class="c">! SW1 e SW2</span>
 interface FastEthernet0/1
  switchport access vlan 10
  switchport mode access
@@ -134,11 +122,11 @@ interface FastEthernet0/3
  switchport mode access
 interface GigabitEthernet0/1
  switchport mode trunk</code></pre>
-              </li>
-              <li>
-                <h3>Gateways e roteamento no CORE</h3>
-                <p>Cada VLAN ganhou uma interface virtual (SVI) com o IP do gateway, e o <code>ip routing</code> liga o roteamento entre elas.</p>
-<pre class="cli"><code>ip routing
+        <p>No CORE, as portas Gi1/0/1, Gi1/0/2 e Gi1/0/3 também ficaram em trunk. Foi aqui que apareceu o primeiro problema, que conto mais abaixo.</p>
+
+        <h3>3. Gateways e roteamento no CORE</h3>
+        <p>Cada VLAN ganhou uma interface virtual (SVI) com o IP do gateway, e o <code>ip routing</code> liga o roteamento entre elas:</p>
+<pre><code>ip routing
 !
 interface Vlan10
  ip address 192.168.10.1 255.255.255.0
@@ -148,142 +136,102 @@ interface Vlan30
  ip address 192.168.30.1 255.255.255.0
 interface Vlan40
  ip address 172.16.40.1 255.255.255.0</code></pre>
-              </li>
-              <li>
-                <h3>DHCP centralizado com relay</h3>
-                <p>O pedido DHCP do PC é um broadcast e não sai da VLAN. A SVI no CORE recebe o pedido e, por causa do <code>ip helper-address</code>, encaminha ao servidor 172.16.40.2 em unicast, informando o próprio IP. O servidor usa esse endereço para escolher o pool da rede certa.</p>
-<pre class="cli"><code>interface Vlan10
+
+        <h3>4. DHCP centralizado com relay</h3>
+        <p>O pedido DHCP do PC é um broadcast, e broadcast não sai da VLAN. Por isso configurei o <code>ip helper-address</code> nas SVIs das redes de usuários: o CORE recebe o pedido e encaminha ao servidor 172.16.40.2 em unicast, informando o próprio IP. O servidor usa esse endereço para escolher o pool da rede certa.</p>
+<pre><code>interface Vlan10
  ip helper-address 172.16.40.2
 interface Vlan20
  ip helper-address 172.16.40.2
 interface Vlan30
  ip helper-address 172.16.40.2</code></pre>
-                <figure class="figure figure-step">
-                  <div class="figure-frame"><a href="imagens/pools-dhcp.png" title="Abrir a imagem em tamanho original"><img src="imagens/pools-dhcp.png" width="854" height="653" loading="lazy" alt="Serviço DHCP do servidor no Packet Tracer, com os pools LAN ADMINISTRATIVO, LAN TI, LAN COMERCIAL e serverPool"></a></div>
-                  <figcaption><span class="label">Figura 2</span>Pools DHCP no servidor, um para cada rede de usuários.</figcaption>
-                </figure>
-              </li>
-            </ol>
-          </div>
-        </section>
+        <p>No servidor, criei um pool para cada rede de usuários, com o gateway da VLAN e o primeiro endereço no .100. O <code>serverPool</code> é o pool padrão do Packet Tracer e fica sem uso, porque a VLAN 40 só tem o servidor.</p>
+        <figure>
+          <a href="imagens/pools-dhcp.png" title="Abrir a imagem em tamanho original"><img src="imagens/pools-dhcp.png" width="854" height="653" loading="lazy" alt="Serviço DHCP do servidor no Packet Tracer, com os pools LAN ADMINISTRATIVO, LAN TI, LAN COMERCIAL e serverPool"></a>
+          <figcaption>Os pools DHCP configurados no servidor.</figcaption>
+        </figure>
 
-        <section class="case-section" aria-labelledby="s4">
-          <div class="case-side rv"><p class="label">Testes</p><span class="sec-num" aria-hidden="true">04</span></div>
-          <div class="prose rv">
-            <h2 id="s4">O que foi testado</h2>
-            <p>Os testes de conectividade foram feitos primeiro com IPs fixos e repetidos com os endereços entregues pelo DHCP. A saída de cada um está na documentação completa.</p>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Teste</th><th>Comando</th><th>Resultado</th></tr></thead>
-                <tbody>
-                  <tr><td>VLANs no CORE</td><td class="m">show vlan brief</td><td>10, 20, 30 e 40 ativas, com os nomes dos setores</td></tr>
-                  <tr><td>Trunks</td><td class="m">show interfaces trunk</td><td>Três trunks 802.1Q, com as VLANs em forwarding</td></tr>
-                  <tr><td>Vizinhos do CORE</td><td class="m">show cdp neighbors</td><td>SW1, SW2 e SW3 nas portas previstas</td></tr>
-                  <tr><td>Rotas</td><td class="m">show ip route</td><td>As quatro redes conectadas, uma em cada SVI</td></tr>
-                  <tr><td>Ping na mesma VLAN</td><td class="m">ping 192.168.10.101</td><td>4 de 4 respostas, TTL 128</td></tr>
-                  <tr><td>Ping entre VLANs</td><td class="m">ping 192.168.30.100</td><td>3 de 4 respostas, TTL 127</td></tr>
-                  <tr><td>Ping ao servidor</td><td class="m">ping 172.16.40.2</td><td>4 de 4 respostas, TTL 127</td></tr>
-                  <tr><td>DHCP com relay</td><td class="m">ipconfig /release e /renew</td><td>PC-ADM1 recebeu de novo o 192.168.10.102; os seis PCs têm IP do pool da sua VLAN</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <p class="pull">TTL 128 na mesma VLAN, TTL 127 entre VLANs: o salto a menos é o CORE roteando.</p>
-            <p>Na mesma VLAN, a resposta não passa por roteamento e chega com TTL 128. Para outra VLAN e para o servidor, o CORE roteia o pacote e desconta um salto. O primeiro pacote perdido no ping entre VLANs é esperado: ele se perde enquanto o CORE resolve o ARP do destino.</p>
-            <span class="cli-note">Trecho da saída · PC-ADM1 para PC-COM2</span>
-<pre class="cli"><code><span class="p">C:\&gt;</span>ping 192.168.30.100
+        <h2 id="testes">Testes</h2>
+        <p>Testei primeiro com IPs fixos e depois repeti com os endereços entregues pelo DHCP. Estes são os resultados finais:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Teste</th><th>Comando</th><th>Resultado</th></tr></thead>
+            <tbody>
+              <tr><td>VLANs no CORE</td><td class="m">show vlan brief</td><td>10, 20, 30 e 40 ativas, com os nomes dos setores</td></tr>
+              <tr><td>Trunks</td><td class="m">show interfaces trunk</td><td>Três trunks 802.1Q, com as VLANs em forwarding</td></tr>
+              <tr><td>Vizinhos do CORE</td><td class="m">show cdp neighbors</td><td>SW1, SW2 e SW3 nas portas previstas</td></tr>
+              <tr><td>Rotas</td><td class="m">show ip route</td><td>As quatro redes conectadas, uma em cada SVI</td></tr>
+              <tr><td>Ping na mesma VLAN</td><td class="m">ping 192.168.10.101</td><td>4 de 4 respostas, TTL 128</td></tr>
+              <tr><td>Ping entre VLANs</td><td class="m">ping 192.168.30.100</td><td>3 de 4 respostas, TTL 127</td></tr>
+              <tr><td>Ping ao servidor</td><td class="m">ping 172.16.40.2</td><td>4 de 4 respostas, TTL 127</td></tr>
+              <tr><td>DHCP com relay</td><td class="m">ipconfig /release e /renew</td><td>PC-ADM1 recebeu de novo o 192.168.10.102; os seis PCs têm IP do pool da sua VLAN</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <p>Um detalhe que vale observar é o TTL. Na mesma VLAN, a resposta chega com TTL 128, porque o pacote não passa por roteamento. Para outra VLAN e para o servidor, chega com 127: o CORE roteou o pacote e descontou um salto. E o primeiro pacote perdido no ping entre VLANs é esperado, porque ele se perde enquanto o CORE resolve o ARP do destino.</p>
+        </div>
+        <span class="code-label">Trecho da saída, do PC-ADM1 para o PC-COM2:</span>
+<pre><code><span class="p">C:\&gt;</span>ping 192.168.30.100
 
 Request timed out.
 Reply from 192.168.30.100: bytes=32 time&lt;1ms TTL=127
 Reply from 192.168.30.100: bytes=32 time&lt;1ms TTL=127
 Reply from 192.168.30.100: bytes=32 time&lt;1ms TTL=127</code></pre>
-          </div>
-        </section>
+        <p>A saída completa de cada teste está na <a href="https://github.com/eliasssiqueira/portfolio-infra-ti/tree/main/projetos/redes-corporativas" target="_blank" rel="noopener">documentação no GitHub</a>.</p>
 
-        <section class="case-section" aria-labelledby="s5">
-          <div class="case-side rv"><p class="label">Troubleshooting</p><span class="sec-num" aria-hidden="true">05</span></div>
-          <div class="rv">
-            <h2 id="s5">Problemas encontrados e soluções</h2>
-            <div class="issues">
-              <article class="issue">
-                <p class="issue-num">Problema 1</p>
-                <h3>Trunk recusado no CORE</h3>
-                <dl>
-                  <dt>Sintoma</dt><dd>PCs da mesma VLAN em switches diferentes não se comunicavam, e o <code>switchport mode trunk</code> retornava <code>% Invalid input detected</code> na porta do CORE.</dd>
-                  <dt>Solução</dt><dd>Executar <code>switchport</code> na interface, colocando a porta em camada 2, e então configurar o trunk.</dd>
-                  <dt>Lição</dt><dd>Em switch multicamada, conferir se a porta está em camada 2 antes de configurar trunk.</dd>
-                </dl>
-                <div class="issue-shot"><img src="imagens/problema-1-trunk-recusado.png" width="552" height="136" loading="lazy" alt="Terminal do CORE mostrando o erro Invalid input detected ao executar switchport mode trunk"></div>
-              </article>
-              <article class="issue">
-                <p class="issue-num">Problema 2</p>
-                <h3>PCs sem comunicação até renovar o DHCP</h3>
-                <dl>
-                  <dt>Sintoma</dt><dd>A comunicação a partir dos PCs do SW1 parecia falhar, como se as VLANs não passassem pelo trunk.</dd>
-                  <dt>Diagnóstico</dt><dd>VLANs e trunks estavam corretos no CORE, e com IP fixo todos os pings funcionaram. O problema estava no endereçamento dos PCs.</dd>
-                  <dt>Solução</dt><dd>Refazer o pedido DHCP: os PCs receberam IP sem nenhuma outra mudança na rede. Provavelmente, os pedidos anteriores foram feitos antes de a rede estar completa.</dd>
-                  <dt>Lição</dt><dd>Depois de mexer na rede, renovar o IP antes de concluir que há falha, e testar com IP fixo para separar problema de rede de problema de DHCP.</dd>
-                </dl>
-              </article>
-              <article class="issue">
-                <p class="issue-num">Problema 3</p>
-                <h3>Configuração com sobras, encontrada na revisão</h3>
-                <dl>
-                  <dt>Sintoma</dt><dd>Nenhum impacto no funcionamento. Apareceu na revisão do running-config antes da publicação.</dd>
-                  <dt>Solução</dt><dd>Os helpers que apontavam para os próprios gateways foram removidos, ficando só o do servidor, e as linhas <code>switchport access vlan</code> que sobraram nos trunks saíram. A configuração limpa foi salva com <code>copy running-config startup-config</code>.</dd>
-                  <dt>Lição</dt><dd>O <code>ip helper-address</code> aponta para o servidor DHCP, e cada correção precisa ser salva para sobreviver a um reinício.</dd>
-                </dl>
-              </article>
-            </div>
-          </div>
-        </section>
+        <h2 id="problemas">Problemas e soluções</h2>
 
-        <section class="case-section" aria-labelledby="s6">
-          <div class="case-side rv"><p class="label">Fechamento</p><span class="sec-num" aria-hidden="true">06</span></div>
-          <div class="prose rv">
-            <h2 id="s6">Aprendizados e próximos passos</h2>
-            <div class="two-col">
-              <div>
-                <h3>O que fica</h3>
-                <ul>
-                  <li>Tráfego na mesma VLAN é de camada 2: passa pelos trunks e não depende do gateway.</li>
-                  <li>Em switch multicamada, a porta precisa estar em camada 2 para virar trunk.</li>
-                  <li>O relay DHCP aponta para o servidor, que escolhe o pool pela rede da SVI que encaminhou o pedido.</li>
-                  <li>Testar com IP fixo separa falhas de rede de falhas de DHCP.</li>
-                  <li>Revisar e salvar a configuração antes de documentar.</li>
-                </ul>
-              </div>
-              <div>
-                <h3>Próximos passos</h3>
-                <ul>
-                  <li><strong>Versão 2:</strong> redundância do CORE, evoluindo este mesmo laboratório.</li>
-                  <li>ACLs para controlar o acesso entre os setores.</li>
-                  <li>Roteador de borda para simular a saída para a internet.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
+        <h3>Problema 1: trunk recusado no CORE</h3>
+        <p>Os PCs da mesma VLAN em switches diferentes não se comunicavam. Ao configurar o trunk na Gi1/0/1 do CORE, o <code>switchport mode trunk</code> retornava <code>% Invalid input detected</code>.</p>
+        <figure>
+          <img src="imagens/problema-1-trunk-recusado.png" width="552" height="136" loading="lazy" alt="Terminal do CORE mostrando o erro Invalid input detected ao executar switchport mode trunk">
+          <figcaption>O erro no terminal do CORE.</figcaption>
+        </figure>
+        <p>A solução foi executar <code>switchport</code> na interface, colocando a porta em camada 2, e só então configurar o trunk. Como isso resolveu, a porta provavelmente estava operando em camada 3.</p>
+        <p><strong>Lição:</strong> em switch multicamada, vale conferir se a porta está em camada 2 antes de configurar trunk. O <code>show interfaces gi1/0/1 switchport</code> mostra isso.</p>
+
+        <h3>Problema 2: PCs sem comunicação até renovar o DHCP</h3>
+        <p>Com tudo configurado, a comunicação a partir dos PCs do SW1 parecia falhar, como se as VLANs não passassem pelo trunk. No CORE, o <code>show vlan brief</code> e o <code>show interfaces trunk</code> mostravam tudo certo, e com IP fixo todos os pings funcionaram. Ou seja, o problema estava no endereçamento dos PCs.</p>
+        <p>Quando refiz o pedido DHCP, os PCs receberam IP sem nenhuma outra mudança na rede. A causa provável: os pedidos anteriores foram feitos antes de a rede estar completa, e o PC não repete o pedido sozinho.</p>
+        <p><strong>Lição:</strong> depois de mexer na rede, renovar o IP antes de concluir que há falha, e testar com IP fixo para separar problema de rede de problema de DHCP.</p>
+
+        <h3>Problema 3: configuração com sobras</h3>
+        <p>Esse não parava a rede: apareceu na revisão do running-config, antes de publicar. Algumas SVIs tinham <code>ip helper-address</code> apontando para os próprios gateways do CORE, além do servidor, e as portas trunk tinham linhas <code>switchport access vlan</code> que sobraram de configurações anteriores.</p>
+        <p>Deixei só o helper para o servidor, removi as sobras com <code>no switchport access vlan</code> e salvei a configuração limpa com <code>copy running-config startup-config</code>.</p>
+        <p><strong>Lição:</strong> o <code>ip helper-address</code> aponta para o servidor DHCP, e cada correção precisa ser salva para sobreviver a um reinício.</p>
+
+        <h2 id="aprendizados">O que aprendi e próximos passos</h2>
+        <ul>
+          <li>Tráfego na mesma VLAN é de camada 2: passa pelos trunks e não depende do gateway.</li>
+          <li>Em switch multicamada, a porta precisa estar em camada 2 para virar trunk.</li>
+          <li>O relay DHCP aponta para o servidor, que escolhe o pool pela rede da SVI que encaminhou o pedido.</li>
+          <li>Testar com IP fixo separa falhas de rede de falhas de DHCP.</li>
+          <li>Revisar e salvar a configuração antes de documentar.</li>
+        </ul>
+        <p>Na versão 2, vou evoluir este mesmo laboratório com redundância do CORE. Depois disso, ficam na lista ACLs para controlar o acesso entre os setores e um roteador de borda para simular a saída para a internet.</p>
       </div>
+
+      <aside class="box" aria-labelledby="arquivos">
+        <h2 id="arquivos">Arquivos do laboratório</h2>
+        <ul>
+          <li><a href="https://github.com/eliasssiqueira/portfolio-infra-ti/tree/main/projetos/redes-corporativas" target="_blank" rel="noopener">Documentação completa no GitHub</a>, com todas as saídas de comando</li>
+          <li><a href="https://github.com/eliasssiqueira/portfolio-infra-ti/tree/main/projetos/redes-corporativas/configs" target="_blank" rel="noopener">Configurações</a> do CORE, SW1, SW2 e SW3</li>
+          <li><a href="lab/rede-corporativa-v1.pkt" download>Arquivo do Packet Tracer (.pkt)</a>, que abre na versão 9.0.1 ou mais recente</li>
+        </ul>
+      </aside>
+
+      <footer class="author">
+        <div class="avatar" aria-hidden="true">ES</div>
+        <p><strong>Elias de Siqueira</strong><br>Suporte e infraestrutura de TI. <a href="../../sobre/">Mais sobre mim</a> · <a href="https://www.linkedin.com/in/elias-de-siqueira-ti" target="_blank" rel="noopener">LinkedIn</a></p>
+      </footer>
     </article>
-
-    <section class="cta" aria-labelledby="cta-titulo">
-      <div class="wrap">
-        <h2 id="cta-titulo">Todas as saídas de comando, as configurações completas e o arquivo do laboratório estão no GitHub.</h2>
-        <div class="actions">
-          <a class="btn btn-solid" href="https://github.com/eliasssiqueira/portfolio-infra-ti/tree/main/projetos/redes-corporativas" target="_blank" rel="noopener">Documentação completa ↗</a>
-          <a class="btn" href="https://github.com/eliasssiqueira/portfolio-infra-ti/tree/main/projetos/redes-corporativas/configs" target="_blank" rel="noopener">Configurações ↗</a>
-          <a class="btn" href="lab/rede-corporativa-v1.pkt" download>Baixar o .pkt</a>
-        </div>
-        <a class="back" href="../../#projetos">← Voltar aos projetos</a>
-      </div>
-    </section>
   </main>
 
-  <footer class="foot tight">
-    <div class="wrap">
+  <footer class="site-footer">
+    <div class="container">
       <p>© 2026 Elias de Siqueira</p>
-      <p><a href="https://github.com/eliasssiqueira/portfolio-infra-ti" target="_blank" rel="noopener">Código e documentação no GitHub ↗</a></p>
+      <p><a href="https://github.com/eliasssiqueira/portfolio-infra-ti" target="_blank" rel="noopener">Código e documentação no GitHub</a></p>
     </div>
   </footer>
 

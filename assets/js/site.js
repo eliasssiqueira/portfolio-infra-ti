@@ -1,15 +1,38 @@
-// Revela as seções ao rolar a página. Sem JavaScript, tudo aparece normalmente.
+// Botão de tema claro/escuro e barra de leitura dos posts.
 (function () {
-  window.__rv = true;
-  var items = document.querySelectorAll('.rv');
-  if (!('IntersectionObserver' in window)) {
-    items.forEach(function (el) { el.classList.add('in'); });
-    return;
+  var root = document.documentElement;
+  var btn = document.querySelector('.theme-toggle');
+
+  function escuro() {
+    var t = root.getAttribute('data-tema');
+    if (t) return t === 'escuro';
+    return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
   }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  function rotulo() {
+    if (btn) btn.setAttribute('aria-label', escuro() ? 'Ativar tema claro' : 'Ativar tema escuro');
+  }
+  if (btn) {
+    rotulo();
+    btn.addEventListener('click', function () {
+      var proximo = escuro() ? 'claro' : 'escuro';
+      root.setAttribute('data-tema', proximo);
+      try { localStorage.setItem('tema', proximo); } catch (e) {}
+      rotulo();
     });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-  items.forEach(function (el) { io.observe(el); });
+  }
+
+  var barra = document.querySelector('.progress');
+  if (barra) {
+    var pendente = false;
+    var atualizar = function () {
+      var total = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = total > 0 ? Math.min(100, Math.max(0, window.scrollY / total * 100)) : 0;
+      barra.style.width = pct + '%';
+      pendente = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!pendente) { pendente = true; window.requestAnimationFrame(atualizar); }
+    }, { passive: true });
+    atualizar();
+  }
 })();
