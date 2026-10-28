@@ -2,7 +2,7 @@
 
 **Elias de Siqueira** · Suporte e Infraestrutura de TI
 
-[LinkedIn](https://www.linkedin.com/in/elias-de-siqueira-ti) · [E-mail](mailto:eliassantos584@gmail.com)
+[Site](https://eliasssiqueira.github.io/portfolio-infra-ti/) · [LinkedIn](https://www.linkedin.com/in/elias-de-siqueira-ti) · [E-mail](mailto:eliassantos584@gmail.com)
 
 Profissional de TI com experiência em suporte e infraestrutura, do atendimento ao usuário à administração de Active Directory, Microsoft 365, Hyper-V e backups. Aberto a oportunidades em infraestrutura, redes, suporte e administração de sistemas.
 
