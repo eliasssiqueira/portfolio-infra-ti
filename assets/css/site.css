@@ -262,3 +262,6 @@ td.m { font-family: var(--mono); font-size: .84rem; white-space: nowrap; }
   .site-header, .progress, .skip, .theme-toggle { display: none; }
   body { background: #fff; color: #000; }
 }
+
+.foto-sobre { display: block; width: 132px; height: 132px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); margin: 6px 0 22px; }
+@media (max-width: 520px) { .foto-sobre { width: 112px; height: 112px; } }
