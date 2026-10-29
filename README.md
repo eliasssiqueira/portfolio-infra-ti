@@ -16,12 +16,6 @@ Este repositório reúne laboratórios práticos documentados com topologia, con
 | 02. Windows Server e serviços de domínio | AD DS, DNS, DHCP, GPO e File Server | Em preparação |
 | 03. SCCM e implantação de sistemas via PXE | Configuration Manager, PXE, WinPE, ADK e SQL Server | Em preparação |
 
-## Experiência
-
-- **Analista de Suporte em Infraestrutura**, Cobra Correntes Brasileiras (mar/2025 a nov/2025): ambiente com cerca de 80 usuários e 115 computadores; Active Directory, GPO, Microsoft 365, servidores Windows com Hyper-V, backups com Veeam, inventário e apoio à compra de equipamentos.
-- **Analista de TI**, TRD Transporte Rodoviário Dalfan (mai/2023 a mar/2025): atendimento N1 presencial e remoto, incluindo usuários de unidades em Porto Alegre, Curitiba, Campinas, Joinville e São Paulo; criação de usuários, gestão de acessos, inventário e preparação de equipamentos.
-- **Estagiário**, L&L Info Soluções Tecnológicas (fev/2022 a mai/2022): suporte a usuários, manutenção de computadores e impressoras, configuração de redes e apoio ao laboratório Linux.
-
 ## Competências
 
 - Redes TCP/IP, VLANs, trunking e roteamento

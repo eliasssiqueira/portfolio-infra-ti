@@ -235,13 +235,6 @@ td.m { font-family: var(--mono); font-size: .84rem; white-space: nowrap; }
 .author strong { color: var(--text); }
 
 /* página Sobre */
-.exp { list-style: none; margin: 0; padding: 0; }
-.exp > li { padding: 18px 0; border-bottom: 1px solid var(--border); }
-.exp > li:first-child { border-top: 1px solid var(--border); }
-.exp h3 { margin: 0; font-size: 1.12rem; }
-.exp .org { font-family: var(--sans); margin: 2px 0 0; color: var(--muted); font-size: .98rem; }
-.exp .when { font-family: var(--sans); color: var(--faint); font-size: .88rem; margin: 2px 0 8px; }
-.exp ul { margin: 0; }
 .skill-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 28px; font-family: var(--sans); font-size: 1rem; }
 .skill-groups h3 { font-size: .82rem; font-weight: 600; text-transform: uppercase; letter-spacing: .09em; color: var(--faint); margin: 14px 0 6px; }
 .skill-groups ul { list-style: none; padding: 0; margin: 0; }
