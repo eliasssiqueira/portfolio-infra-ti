@@ -13,6 +13,7 @@ Este repositório reúne laboratórios práticos documentados com topologia, con
 | Projeto | Tecnologias | Status |
 |---|---|---|
 | [01. Infraestrutura de rede corporativa](projetos/redes-corporativas/) | Cisco Packet Tracer, VLANs, trunks 802.1Q, roteamento entre VLANs e DHCP com relay | Versão 1 concluída |
+| [Automação de boletos](projetos/automacao-boletos/) | Outlook, Power Automate, OneDrive e Python | Implementada, em evolução |
 | 02. Windows Server e serviços de domínio | AD DS, DNS, DHCP, GPO e File Server | Em preparação |
 | 03. SCCM e implantação de sistemas via PXE | Configuration Manager, PXE, WinPE, ADK e SQL Server | Em preparação |
 

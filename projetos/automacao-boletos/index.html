@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automação de boletos: do e-mail ao lembrete no calendário · Elias de Siqueira</title>
+  <meta name="description" content="Automação que lê o boleto recebido por e-mail, identifica o vencimento e cria um lembrete no calendário 1 dia antes, usando Outlook, Power Automate, OneDrive e Python.">
+  <meta name="theme-color" content="#fcfcfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141619" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Automação de boletos: do e-mail ao lembrete no calendário">
+  <meta property="og:description" content="Outlook, Power Automate, OneDrive e Python para nunca mais esquecer um boleto.">
+  <meta property="og:url" content="https://eliasssiqueira.github.io/portfolio-infra-ti/projetos/automacao-boletos/">
+  <meta property="og:image" content="https://eliasssiqueira.github.io/portfolio-infra-ti/projetos/automacao-boletos/imagens/fluxo.png">
+  <meta property="article:published_time" content="2026-10-29">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <script>(function(){try{var t=localStorage.getItem('tema');if(t==='escuro'||t==='claro')document.documentElement.setAttribute('data-tema',t)}catch(e){}})();</script>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <div class="progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="../../">Elias de Siqueira</a>
+      <nav class="site-nav" aria-label="Principal">
+        <a href="../../">Início</a>
+        <a href="../../sobre/">Sobre</a>
+        <a class="hide-xs" href="https://github.com/eliasssiqueira/portfolio-infra-ti" target="_blank" rel="noopener">GitHub</a>
+        <button class="theme-toggle" type="button" aria-label="Alternar tema">
+          <svg class="icon-lua" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <article class="post">
+      <a class="back" href="../../">← Todos os posts</a>
+
+      <header class="post-header">
+        <p class="kicker">Automação · em andamento</p>
+        <h1>Automação de boletos: do e-mail ao lembrete no calendário</h1>
+        <p class="post-meta">Por Elias de Siqueira · <time datetime="2026-10-29">29 de outubro de 2026</time> · <span data-leitura>3 min de leitura</span></p>
+        <ul class="tags" aria-label="Assuntos">
+          <li>automação</li><li>power-automate</li><li>python</li><li>outlook</li><li>onedrive</li>
+        </ul>
+      </header>
+
+      <div class="post-body">
+        <p class="lede">Uma automação que identifica o boleto recebido por e-mail, lê o vencimento e cria sozinha um lembrete no calendário 1 dia antes do pagamento. Já está implementada na empresa.</p>
+
+        <figure class="wide-figure">
+          <img src="imagens/fluxo.png" width="726" height="358" alt="Fluxo da automação: Outlook recebe o boleto, Power Automate salva o anexo, OneDrive guarda o PDF, Python lê o vencimento, os dados saem em JSON, o Power Automate cria a ação e o Calendário do Outlook agenda o lembrete 1 dia antes. Se algo falha, um alerta por e-mail pede a revisão.">
+          <figcaption>O caminho do boleto, do e-mail ao calendário, com o alerta de falha.</figcaption>
+        </figure>
+
+        <nav class="toc" aria-label="Neste post">
+          <p>Neste post</p>
+          <ol>
+            <li><a href="#problema">O problema</a></li>
+            <li><a href="#solucao">A solução</a></li>
+            <li><a href="#fluxo">Como funciona</a></li>
+            <li><a href="#proximo">Próximo passo</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="problema">O problema</h2>
+        <p>Em muitas pequenas e médias empresas, a mesma pessoa cuida de várias áreas ao mesmo tempo. No meio da correria, coisas importantes podem passar, e um boleto esquecido vira multa e juros.</p>
+        <p>Essa automação nasceu de uma dificuldade que minha companheira enfrentava no dia a dia com o esquecimento de boletos.</p>
+
+        <h2 id="solucao">A solução</h2>
+        <p>Desenvolvi e já implementei na empresa uma automação para esse processo. Ela identifica o boleto recebido por e-mail, lê o vencimento e cria automaticamente um lembrete no calendário 1 dia antes do pagamento.</p>
+        <p>É uma solução simples, mas ajuda a reduzir trabalho manual e a evitar esquecimentos.</p>
+
+        <h2 id="fluxo">Como funciona</h2>
+        <p>Cada etapa fica com a ferramenta que faz o trabalho melhor:</p>
+        <ol>
+          <li><strong>Outlook:</strong> recebe o boleto por e-mail.</li>
+          <li><strong>Power Automate:</strong> identifica o e-mail com o boleto e salva o anexo.</li>
+          <li><strong>OneDrive:</strong> armazena o PDF.</li>
+          <li><strong>Python:</strong> lê o PDF e encontra o vencimento.</li>
+          <li><strong>Resultados em JSON:</strong> o Python gera um arquivo com os dados do boleto.</li>
+          <li><strong>Power Automate:</strong> usa esses dados e cria a ação automaticamente.</li>
+          <li><strong>Calendário do Outlook:</strong> agenda o lembrete 1 dia antes do vencimento.</li>
+        </ol>
+        <p>Se alguma coisa dá errado na leitura, o fluxo envia um e-mail de alerta para revisão. Assim, um boleto que a automação não conseguiu ler não passa sem ninguém perceber.</p>
+
+        <h2 id="proximo">Próximo passo</h2>
+        <p>Tratar também os boletos protegidos por senha. Hoje esses PDFs não podem ser lidos direto, e esse é o caso que ainda falta cobrir.</p>
+      </div>
+
+      <footer class="author">
+        <div class="avatar" aria-hidden="true">ES</div>
+        <p><strong>Elias de Siqueira</strong><br>Suporte e infraestrutura de TI. <a href="../../sobre/">Mais sobre mim</a> · <a href="https://www.linkedin.com/in/elias-de-siqueira-ti" target="_blank" rel="noopener">LinkedIn</a></p>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Elias de Siqueira</p>
+      <p><a href="https://github.com/eliasssiqueira/portfolio-infra-ti" target="_blank" rel="noopener">Código e documentação no GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/site.js" defer></script>
+</body>
+</html>
