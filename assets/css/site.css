@@ -258,3 +258,28 @@ td.m { font-family: var(--mono); font-size: .84rem; white-space: nowrap; }
 
 .foto-sobre { display: block; width: 132px; height: 132px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); margin: 6px 0 22px; }
 @media (max-width: 520px) { .foto-sobre { width: 112px; height: 112px; } }
+
+/* ---------- fluxo da automação de boletos ---------- */
+.fluxo { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 18px; }
+.fluxo ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 26px 18px; counter-reset: passo; }
+.fluxo li { position: relative; margin: 0; padding: 14px 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; font-family: var(--sans); }
+.fluxo li::marker { content: none; }
+.fluxo .ic { width: 38px; height: 38px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+.fluxo .ic svg { width: 22px; height: 22px; }
+.fluxo strong { font-size: .84rem; line-height: 1.25; color: var(--text); }
+.fluxo .d { font-size: .76rem; line-height: 1.35; color: var(--muted); }
+.fluxo li:not(:nth-child(n+7))::after { content: "\203A"; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.3rem; line-height: 1; }
+.fluxo li.falha { grid-column: 5; grid-row: 2; border-style: dashed; }
+.fluxo li.falha::before { content: ""; position: absolute; left: 50%; top: -26px; height: 26px; border-left: 1.5px dashed var(--faint); }
+.fluxo li.falha .ic { background: rgba(180, 83, 9, .12); color: #b45309; }
+@media (max-width: 760px) {
+  .fluxo ol { grid-template-columns: 1fr; gap: 22px; }
+  .fluxo li { flex-direction: row; text-align: left; align-items: center; gap: 12px; padding: 12px 14px; flex-wrap: wrap; }
+  .fluxo li strong { flex: 1 1 auto; }
+  .fluxo li .d { flex: 1 0 100%; padding-left: 50px; margin-top: -8px; }
+  .fluxo li:not(:nth-child(n+7))::after { right: auto; left: 50%; top: auto; bottom: -21px; transform: translateX(-50%) rotate(90deg); }
+    .fluxo li.falha { grid-column: 1; grid-row: auto; }
+  .fluxo li.falha::before { content: none; }
+}
+@media (prefers-color-scheme: dark) { :root:not([data-tema="claro"]) .fluxo li.falha .ic { background: rgba(245, 158, 11, .15); color: #f59e0b; } }
+:root[data-tema="escuro"] .fluxo li.falha .ic { background: rgba(245, 158, 11, .15); color: #f59e0b; }

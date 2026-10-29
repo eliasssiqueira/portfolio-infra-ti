@@ -55,8 +55,19 @@
         <p class="lede">Uma automação que identifica o boleto recebido por e-mail, lê o vencimento e cria sozinha um lembrete no calendário 1 dia antes do pagamento. Já está implementada na empresa.</p>
 
         <figure class="wide-figure">
-          <img src="imagens/fluxo.png" width="726" height="358" alt="Fluxo da automação: Outlook recebe o boleto, Power Automate salva o anexo, OneDrive guarda o PDF, Python lê o vencimento, os dados saem em JSON, o Power Automate cria a ação e o Calendário do Outlook agenda o lembrete 1 dia antes. Se algo falha, um alerta por e-mail pede a revisão.">
-          <figcaption>O caminho do boleto, do e-mail ao calendário, com o alerta de falha.</figcaption>
+          <div class="fluxo" role="group" aria-label="Fluxo da automação, em sete etapas, com alerta por e-mail em caso de falha na leitura">
+            <ol>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></span><strong>Outlook</strong><span class="d">Recebe o boleto por e-mail</span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="7" height="6" rx="1.5"/><rect x="14" y="14" width="7" height="6" rx="1.5"/><path d="M10 7h4a3 3 0 0 1 3 3v4"/></svg></span><strong>Power Automate</strong><span class="d">Identifica e salva o anexo</span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 8.5a4.75 4.75 0 0 1 .5 9.5z"/></svg></span><strong>OneDrive</strong><span class="d">Armazena o PDF</span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 5l-4 14"/></svg></span><strong>Python</strong><span class="d">Lê o vencimento</span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4C6.5 4 7.5 8 6 10c-.6.8-1.5 1-2 2 .5 1 1.4 1.2 2 2 1.5 2-.5 6 3 6M15 4c2.5 0 1.5 4 3 6 .6.8 1.5 1 2 2-.5 1-1.4 1.2-2 2-1.5 2 .5 6-3 6"/></svg></span><strong>Resultados em JSON</strong><span class="d">Gera os dados do boleto</span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="7" height="6" rx="1.5"/><rect x="14" y="14" width="7" height="6" rx="1.5"/><path d="M10 7h4a3 3 0 0 1 3 3v4"/></svg></span><strong>Power Automate</strong><span class="d">Cria a ação automaticamente</span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8.5 14.5h3v3h-3z"/></svg></span><strong>Calendário do Outlook</strong><span class="d">Agenda o lembrete 1 dia antes</span></li>
+            <li class="falha"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.4v.1"/></svg></span><strong>Alerta de falha</strong><span class="d">Envia e-mail para revisão</span></li>
+            </ol>
+          </div>
+          <figcaption>O caminho do boleto, do e-mail ao calendário. Se a leitura falha, um alerta por e-mail pede a revisão.</figcaption>
         </figure>
 
         <nav class="toc" aria-label="Neste post">
